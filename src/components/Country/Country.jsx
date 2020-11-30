@@ -4,22 +4,25 @@ import styles from './country.module.css';
 import {GetCovidDataCountries} from '../../Services/covidapis';
 const Country = (props) => {
 
-    const [countrys,setCountries]=useState([]);
+    const [countries,setCountries]=useState([]);
 
     useEffect(()=>{
 
         const getCountries=async()=>{
-            return await GetCovidDataCountries();
+            const data= await GetCovidDataCountries();
+            setCountries([...data]);
         }
-        setCountries(getCountries());
+        getCountries();
 
     },[setCountries])
+
+
     return (
         <div className={cx(styles.container)}>
-            <select className={cx(styles.input)}>
-                <option selected value="global">Global</option>
+            <select className={cx(styles.input)} onChange={(e)=>{props.onCountryChange(e.target.value)}} >
+                <option selected value="">Global</option>
                 {
-                    countrys.map((country,i)=>(<option key={i} value={country}>{country}</option>))
+                    countries.map((country,i)=>(<option key={i} value={country.name}>{country.name}</option>))
                 }
             </select>
         </div>

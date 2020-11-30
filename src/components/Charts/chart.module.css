@@ -1,0 +1,9 @@
+.container{
+    display:flex;
+    padding: 20px 50px;
+    align-items: center;
+    justify-content: center;
+}
+.chart{
+    width: 60%;
+}
